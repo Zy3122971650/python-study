@@ -13,7 +13,7 @@ while True:
     Day_list1=["Unkonw"]*1000
     Day_list2=["Unkonw"]*1000
 
-    name_find[0]='xx'
+    '''name_find[0]='xx'
     name_base[0]=xx=["姓名：xx","出身年月：\n阳历年：1972.2.1\n农历年：1971.12.17"]
     name_find[1]="xxxxx"
     name_base[1]=xxxxx=["姓名：xxxxx","出身年月：\n阳历年：1976.1.31\n农历年：1976.12.13"]
@@ -28,9 +28,18 @@ while True:
     name_find[y:]=[]
     name_base[y:]=[]
 
-      #获取出生年份信息
+      #获取出生年份信息'''
    
-
+    def Add(number,name,G_year,N_year):
+        name_find[number]=name
+        name_base[number]=name=["姓名：{}".format(name),"出身年月：\n阳历年：{}\n农历年：{}".format(G_year,N_year)]
+        pass
+    Add(0,"a","1111.2.3","111.222.33")
+    Add(1,"爸爸","1972.2.1","1871.12.17")
+    Add(2,"妈妈","1976.1.31","1976.12.13")
+    Add(3,"我","2002.02.25","2002.02.14 ")
+    Add(4,"郑绮霏","2001.6.22","0.0.0.0")
+   
     _31day=[1,3,5,7,8,10,12]
     _28day=[2]
     _30day=[4,6,9,11]
@@ -231,6 +240,9 @@ while True:
 
     #测试功能  最近过生日的
     print("="*30)
+    y=name_find.index("Unkonw")
+    name_find[y:]=[]
+    name_base[y:]=[]
     x=range (len(name_find))
     
     for i in x:
