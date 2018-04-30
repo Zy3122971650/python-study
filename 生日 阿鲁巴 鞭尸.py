@@ -1,45 +1,45 @@
 ﻿import time
+import pymysql
 from datetime import datetime
-while True:
-    #获取&计算日期
-    print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-    time_list_last=datetime.now().strftime('%Y %m %d %H:%M:%S').split()
-    
+db=pymysql.connect("host","root","password","database")
+cursor=db.cursor()
+cursor.execute("select * from Birthday")
+data = cursor.fetchall() #((),()) 元组包含的形式
+cursor.close()
+db.close()
 
-    #数据部分
+#处理结果 可视化
+#i=range(len(data))
+#for j in i:
+#    print("-"*(len(str(data[j][2]))+13))
+#    print("|","姓名",data[j][1]," "*((len(str(data[j][2])))+13-8-2-(len(str(data[j][1])))),"|")
+#    print("|","出生日期",data[j][2],"|")
+#    print("-"*((len(str(data[j][2])))+13))
+#    pass 
+    
+ #自动添加
+
+while True:
     name_find=["Unkonw"]*1000
     name_base=["Unkonw"]*1000
     Day_list=["Unkonw"]*1000
     Day_list1=["Unkonw"]*1000
     Day_list2=["Unkonw"]*1000
-
-    '''name_find[0]='xx'
-    name_base[0]=xx=["姓名：xx","出身年月：\n阳历年：1972.2.1\n农历年：1971.12.17"]
-    name_find[1]="xxxxx"
-    name_base[1]=xxxxx=["姓名：xxxxx","出身年月：\n阳历年：1976.1.31\n农历年：1976.12.13"]
-    name_find[2]='TEST'
-    name_base[2]=TEST=["姓名：TEST","出身年月：\n阳历年：1972.4.14\n农历年：1971.12.17"]
-    name_find[4]='xxx'
-    name_base[4]=xxx=["姓名：xxx","出身年月：\n阳历年：2002.2.25\n农历年：2002.02.14"]
-    name_find[3]='xxxx'
-    name_base[3]=xxxx=["姓名：xxxx","出身年月：\n阳历年：2001.6.22\n农历年：0.0.0.0"]
-
-    y=name_find.index("Unkonw")
-    name_find[y:]=[]
-    name_base[y:]=[]
-
-      #获取出生年份信息'''
-   
-    def Add(number,name,G_year,N_year):
+    def Add(number,name,G_year):
         name_find[number]=name
-        name_base[number]=name=["姓名：{}".format(name),"出身年月：\n阳历年：{}\n农历年：{}".format(G_year,N_year)]
+        name_base[number]=name=["姓名：{}".format(name),"出身年月：\n阳历年：{}\n农历年：0.0.0.0".format(G_year)]
         pass
-    Add(0,"a","1111.2.3","111.222.33")
-    Add(1,"爸爸","1972.2.1","1871.12.17")
-    Add(2,"妈妈","1976.1.31","1976.12.13")
-    Add(3,"我","2002.02.25","2002.02.14 ")
-    Add(4,"郑绮霏","2001.6.22","0.0.0.0")
-   
+    i=range(len (data))
+    for j in i:
+        number1=int(data[j][0])-1
+        name=data[j][1]
+        G_year=str(data[j][2])
+        Add(number1,name,G_year)
+        pass
+
+    print(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+    time_list_last=datetime.now().strftime('%Y %m %d %H:%M:%S').split()
+
     _31day=[1,3,5,7,8,10,12]
     _28day=[2]
     _30day=[4,6,9,11]
@@ -53,11 +53,15 @@ while True:
         global _31day
         birthDay_1=name_base[number][1]
         birthDay_2=birthDay_1.split("\n")
-        birthDay_G=birthDay_2[1].split("：")
-        birthDay_N=birthDay_2[2].split("：")
-        birthDay_N_last=str(birthDay_N[1]).split(".")
-        birthDay_G_last=str(birthDay_G[1]).split(".")  #0年 1月 2日
-
+        birthDay_3=birthDay_2[1].split("：")
+        birthDay_4=str(birthDay_3[1][:4])
+        birthDay_5=str(birthDay_3[1][4:6])
+        birthDay_6=str(birthDay_3[1][6:8])
+        birthDay_G_last=[None]*3
+        birthDay_G_last[0]= birthDay_4
+        birthDay_G_last[1]= birthDay_5
+        birthDay_G_last[2]= birthDay_6
+       
         #天数函数
         def counter ():
             day2=0
@@ -280,8 +284,3 @@ while True:
     time.sleep(500/1000)
     
     pass
-
-#阴历生日还无法计算
-
-
-
