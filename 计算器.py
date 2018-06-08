@@ -86,11 +86,12 @@ def get_expression () :
 
 def draw (expression,dod_x_source):
     for i in expression:        
+        #初始化
+        dod_x=dod_x_source.copy()
         global size
         name=i
         i=i.split("=")
         i=i[1]
-        dod_x=dod_x_source
         print("计算开始")
         try :
             res_y=[eval(i) for x in dod_x]
@@ -177,8 +178,8 @@ while True:
     #expression,dod_x=get_expression()
     #draw(expression,dod_x)
     try:
-        expression,dod_x=get_expression()
-        draw(expression,dod_x)
+        expression,dod_x_source=get_expression()
+        draw(expression,dod_x_source)
     except:
         print("格式有误")
         continue
