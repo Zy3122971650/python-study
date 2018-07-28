@@ -43,8 +43,6 @@ def give_like ():
     global all_num
     global times
     while True :
-        
-        time.sleep(2)
 #-------------------------------------向下加载说说--------------------------------------------------------------        
         if  assist_num == count and times != 0 :                         #如果本轮没有点赞则将页面拉到最下 使QQ空间加载说说
             driver.execute_script('window.scrollTo(0,document.body.scrollHeight);') 
@@ -70,19 +68,17 @@ def give_like ():
             except:
                 continue
         
-        
+        times += 1
         print('本次运行已累计点赞{}条说说'.format(all_num))
-        print('已经点赞{}次'.format(times))
-        print(page_down_times,count)
+        #print(page_down_times,count,assist_num)
 #---------------------------------点完一轮赞，休息一会-----------------------------------------------------------        
         if (count) >= 100 or (page_down_times >= 10) :            #如果单个循环运行点赞次数超过100个或者向下5页都已经全部被赞 则刷新页面 脚本初始化  并且休息10min
             print('休息10min')
-            time.sleep(1)
+            time.sleep(5)
             page_down_times = 0                                   #当然如果你的好友10分钟能刷出100条说说  我真是孤陋寡闻了。
             count = 0                                             #如果你想实现秒赞 将600改成1  当然就要牺牲一些cpu
             assist_num = 0
             driver.refresh()
-            times += 1
             #driver.find_element_by_xpath('//*[@id="tab_menu_friend"]/div[3]').click()#防止被好友点赞跳转到 "与我相关"
             driver.find_element_by_id('goto_top_btn')              #回到顶部
             driver.execute_script('window.scrollTo(0,100);')       #下拉一部分至第一条说说处 
