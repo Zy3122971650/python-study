@@ -17,10 +17,10 @@ if endTime > 12 :           #转换时间
    endTime = endTime - 12 
    pass
 
-#chrome_options = Options()
-#chrome_options.add_argument('--headless')
-#driver = webdriver.Chrome(chrome_options=chrome_options)
-driver = webdriver.Chrome()
+chrome_options = Options()
+chrome_options.add_argument('--headless')
+driver = webdriver.Chrome(chrome_options=chrome_options)
+#driver = webdriver.Chrome()
 driver.get('https://i.qq.com/')
 
 def login ():
@@ -58,17 +58,19 @@ def give_like ():
                     try:
                         i.click()
                         count += 1
+                        all_num += count
                     except:
                         try:
                             driver.execute_script('window.scrollTo(0,150);')
                             i.click()
                             count += 1
+                            all_num += count
                         except:
                             continue
             except:
                 continue
-        all_num += count
-        times += 1
+        
+        
         print('本次运行已累计点赞{}条说说'.format(all_num))
         print('已经点赞{}次'.format(times))
         print(page_down_times,count)
@@ -80,6 +82,7 @@ def give_like ():
             count = 0                                             #如果你想实现秒赞 将600改成1  当然就要牺牲一些cpu
             assist_num = 0
             driver.refresh()
+            times += 1
             #driver.find_element_by_xpath('//*[@id="tab_menu_friend"]/div[3]').click()#防止被好友点赞跳转到 "与我相关"
             driver.find_element_by_id('goto_top_btn')              #回到顶部
             driver.execute_script('window.scrollTo(0,100);')       #下拉一部分至第一条说说处 
